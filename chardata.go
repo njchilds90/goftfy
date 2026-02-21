@@ -1,11 +1,13 @@
 package goftfy
 
+import "strings"
+
 // CharInfo holds information about a Unicode character's context.
 type CharInfo struct {
-	Rune        rune
-	Category    string
+	Rune          rune
+	Category      string
 	IsProblematic bool
-	Suggestion  rune
+	Suggestion    rune
 }
 
 // AnalyzeString returns per-character analysis of potentially problematic chars.
@@ -46,10 +48,7 @@ func analyzeRune(r rune) CharInfo {
 }
 
 func isMojibakeChar(r rune) bool {
-	// Characters that appear frequently in UTF-8 read as Latin-1
-	mojibakeIndicators := []rune{
-		'Ã', 'â', 'Â', 'ï', 'Å', 'Ä', 'Ö', 'Ü',
-	}
+	mojibakeIndicators := []rune{'Ã', 'â', 'Â', 'ï', 'Å', 'Ä', 'Ö', 'Ü'}
 	for _, m := range mojibakeIndicators {
 		if r == m {
 			return true
